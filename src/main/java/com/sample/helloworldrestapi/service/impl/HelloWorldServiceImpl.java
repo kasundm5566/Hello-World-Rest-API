@@ -1,6 +1,5 @@
 package com.sample.helloworldrestapi.service.impl;
 
-import com.sample.helloworldrestapi.model.HelloWorldSuccessResponse;
 import com.sample.helloworldrestapi.service.HelloWorldService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,10 +13,10 @@ public class HelloWorldServiceImpl implements HelloWorldService {
     private String nameFirstHalfRegex;
 
     @Override
-    public HelloWorldSuccessResponse helloWorld(final String name) {
+    public String helloWorld(final String name) {
         if (name != null && Pattern.matches(nameFirstHalfRegex, name)) {
-            return HelloWorldSuccessResponse.builder().message("Hello " + name).build();
+            return "Hello " + name;
         }
-        return HelloWorldSuccessResponse.builder().message("").build();
+        return "";
     }
 }

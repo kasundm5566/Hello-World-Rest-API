@@ -17,11 +17,12 @@ public class HelloWorldController {
     private final HelloWorldService helloWorldService;
 
     @GetMapping("/hello-world")
-    public ResponseEntity<HelloWorldSuccessResponse> helloWorld(@RequestParam String name) {
+    public ResponseEntity<Object> helloWorld(@RequestParam String name) {
 
-        HelloWorldSuccessResponse helloWorldSuccessResponse = helloWorldService.helloWorld(name);
+        String message = helloWorldService.helloWorld(name);
 
-        if (StringUtils.hasText(helloWorldSuccessResponse.getMessage())) {
+        if (StringUtils.hasText(message)) {
+            HelloWorldSuccessResponse helloWorldSuccessResponse = HelloWorldSuccessResponse.builder().message(message).build();
             return ResponseEntity.ok(helloWorldSuccessResponse);
         }
 

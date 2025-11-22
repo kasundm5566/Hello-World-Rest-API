@@ -2,7 +2,6 @@ package com.sample.helloworldrestapi.service;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import com.sample.helloworldrestapi.model.HelloWorldSuccessResponse;
 import com.sample.helloworldrestapi.service.impl.HelloWorldServiceImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,25 +15,25 @@ class HelloWorldServiceTest {
 
     @Test
     void validNameTest() {
-        HelloWorldSuccessResponse response = service.helloWorld("Alice");
-        assertEquals("Hello Alice", response.getMessage());
+        String message = service.helloWorld("Alice");
+        assertEquals("Hello Alice", message);
     }
 
     @Test
     void invalidNameTest() {
-        HelloWorldSuccessResponse response = service.helloWorld("Tara");
-        assertEquals("", response.getMessage());
+        String message = service.helloWorld("Tara");
+        assertEquals("", message);
     }
 
     @Test
     void emptyNameTest() {
-        HelloWorldSuccessResponse response = service.helloWorld("");
-        assertEquals("", response.getMessage());
+        String message = service.helloWorld("");
+        assertEquals("", message);
     }
 
     @Test
     void nameWithWhiteSpacesTest() {
-        HelloWorldSuccessResponse response = service.helloWorld(" Alice");
-        assertEquals("", response.getMessage());
+        String message = service.helloWorld(" Alice");
+        assertEquals("", message);
     }
 }

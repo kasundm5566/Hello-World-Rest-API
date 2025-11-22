@@ -25,19 +25,20 @@ class HelloWorldControllerTest {
     @Test
     void validNameTest() {
         when(service.helloWorld("Alice"))
-                .thenReturn(HelloWorldSuccessResponse.builder().message("Hello Alice").build());
+                .thenReturn("Hello Alice");
 
-        ResponseEntity<HelloWorldSuccessResponse> response = controller.helloWorld("Alice");
+        ResponseEntity<Object> response = controller.helloWorld("Alice");
 
         assertThat(response.getStatusCode().value()).isEqualTo(200);
         Assertions.assertNotNull(response.getBody());
-        assertThat(response.getBody().getMessage()).isEqualTo("Hello Alice");
+        Assertions.assertInstanceOf(HelloWorldSuccessResponse.class, response.getBody());
+        assertThat(((HelloWorldSuccessResponse) response.getBody()).getMessage()).isEqualTo("Hello Alice");
     }
 
     @Test
     void invalidNameTest() {
         when(service.helloWorld("Tara"))
-                .thenReturn(HelloWorldSuccessResponse.builder().message("").build());
+                .thenReturn("");
 
         try {
             controller.helloWorld("Tara");
@@ -49,7 +50,7 @@ class HelloWorldControllerTest {
     @Test
     void emptyNameTest() {
         when(service.helloWorld(""))
-                .thenReturn(HelloWorldSuccessResponse.builder().message("").build());
+                .thenReturn("");
 
         try {
             controller.helloWorld("");
@@ -61,7 +62,7 @@ class HelloWorldControllerTest {
     @Test
     void nameWithWhiteSpacesTest() {
         when(service.helloWorld(" Alice"))
-                .thenReturn(HelloWorldSuccessResponse.builder().message("").build());
+                .thenReturn("");
 
         try {
             controller.helloWorld(" Alice");
